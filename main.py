@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, send_file
 import requests
 app = Flask(__name__)
 
@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return(open("index.html", "r").read())
+    return(open("/app/index.html", "r").read())
 
 @app.route('/ip')
 def ip():
@@ -16,12 +16,11 @@ def ip():
 
 @app.route('/css/style.css')
 def style():
-    return(open('css/style.css', 'r').read())
+    return(open('/app/css/style.css', 'r').read())
 
-@app.route('/tmp')
-def tmp():
-    return(open('tmp.html', 'r').read())
-
+@app.route('/images')
+def image():
+    return send_file('/app/images/'+request.args.get('name'), mimetype='image/gif')
 ###def application(env, start_response):###
    ### start_response('200 OK', [('Content-Type', 'text/html')])###
    ### return [b"Hello from MacPaw"]###
